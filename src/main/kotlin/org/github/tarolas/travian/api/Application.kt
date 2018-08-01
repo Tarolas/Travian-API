@@ -1,11 +1,11 @@
-package org.github.tarolas.tbotapi
+package org.github.tarolas.travian.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class TbotapiApplication
+class Application
 
 fun main(args: Array<String>) {
-    runApplication<TbotapiApplication>(*args)
+    runApplication<Application>(*args)
 }

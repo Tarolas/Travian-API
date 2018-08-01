@@ -1,4 +1,4 @@
-package org.github.tarolas.tbotapi
+package org.github.tarolas.travian.api
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class TbotapiApplicationTests {
+class ApplicationTests {
 
 	@Test
 	fun contextLoads() {
