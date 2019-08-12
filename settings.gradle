@@ -1,1 +1,8 @@
 rootProject.name = 'travian.api'
+
+include 'engine-interface'
+include 'engine-impl'
+include 'service'
+include 'service-impl'
+include 'common'
+include 'application'

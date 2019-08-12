@@ -1,0 +1,22 @@
+
+
+apply plugin: 'io.spring.dependency-management'
+
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-webflux'
+    compile 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
+    implementation 'pl.droidsonroids:jspoon:1.3.2'
+    compile project(":engine-interface")
+    compile project(":service")
+    compile project(":common")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+}
+
+test {
+    useJUnitPlatform()
+}
