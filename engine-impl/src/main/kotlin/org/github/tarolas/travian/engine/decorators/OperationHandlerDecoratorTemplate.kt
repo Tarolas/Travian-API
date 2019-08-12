@@ -1,7 +1,7 @@
-package org.github.tarolas.travian.api.engine.decorators
+package org.github.tarolas.travian.engine.decorators
 
-import org.github.tarolas.travian.api.engine.operation.Operation
-import org.github.tarolas.travian.api.engine.OperationHandler
+import org.github.tarolas.travian.engine.operation.Operation
+import org.github.tarolas.travian.engine.OperationHandler
 import org.slf4j.LoggerFactory
 
 abstract class OperationHandlerDecoratorTemplate(private val decoratedOperationHandler: OperationHandler) : OperationHandler {
@@ -14,7 +14,7 @@ abstract class OperationHandlerDecoratorTemplate(private val decoratedOperationH
 
     open fun <R, P> doAfterExecuteWithException(operation: Operation<R, P>, params: P, result: R?, e: Exception) {}
 
-    override fun <R, P> execute(operation: Operation<R, P>, params: P): R? {
+    override suspend fun <R, P> execute(operation: Operation<R, P>, params: P): R? {
         var result: R? = null
 
         doBeforeExecute(operation, params)

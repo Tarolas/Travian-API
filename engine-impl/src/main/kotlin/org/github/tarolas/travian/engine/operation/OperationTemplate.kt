@@ -1,16 +1,12 @@
-package org.github.tarolas.travian.api.engine.operation
+package org.github.tarolas.travian.engine.operation
 
-import org.hsqldb.DatabaseManager.getSession
-import org.hsqldb.error.ErrorCode
-import org.github.tarolas.travian.api.exceptions.UnsuccessfulOperationException
-import reactor.event.selector.Selectors.R
-import org.github.tarolas.travian.api.exceptions.InvalidParametersException
+import org.github.tarolas.travian.engine.exceptions.UnsuccessfulOperationException
 import org.slf4j.LoggerFactory
 
 
 abstract class OperationTemplate<R, P>(
-        override val operationId : Long
-): Operation<R, P> {
+        override val operationId: Long
+) : Operation<R, P> {
 
     private val LOG = LoggerFactory.getLogger(OperationTemplate::class.java)
 

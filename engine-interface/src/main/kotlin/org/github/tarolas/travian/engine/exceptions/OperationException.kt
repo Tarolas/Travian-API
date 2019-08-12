@@ -1,4 +1,4 @@
-package org.github.tarolas.travian.api.exceptions
+package org.github.tarolas.travian.engine.exceptions
 
 import java.lang.RuntimeException
 

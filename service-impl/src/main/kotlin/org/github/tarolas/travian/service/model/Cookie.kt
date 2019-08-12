@@ -1,27 +1,33 @@
-package org.github.tarolas.travian.api.data
+package org.github.tarolas.travian.service.model
 
+import org.github.tarolas.travian.service.dto.NoArg
 import java.time.Duration
 import java.util.*
 import javax.persistence.*
 
+@NoArg
 @Entity
-class Cookie (
+class Cookie(
         @Id @GeneratedValue(strategy = GenerationType.TABLE)
         var id: Long? = null,
-        val name: String,
-        val value: String,
-        val httpOnly: Boolean,
-        val secure: Boolean,
-        val path: String?,
-        val domain: String?,
-        val maxAge: Duration
+        var name: String,
+        var value: String,
+        var httpOnly: Boolean,
+        var secure: Boolean,
+        var path: String?,
+        var domain: String?,
+        var maxAge: Duration
 ) {
     lateinit var creationDate: Date
     lateinit var updateDate: Date
 
     @PrePersist
-    fun onCreate() { creationDate = Date() }
+    fun onCreate() {
+        creationDate = Date()
+    }
 
     @PreUpdate
-    fun onUpdate()  { updateDate = Date() }
+    fun onUpdate() {
+        updateDate = Date()
+    }
 }

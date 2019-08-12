@@ -1,19 +1,21 @@
-package org.github.tarolas.travian.api.engine.operation
+package org.github.tarolas.travian.engine.operation
 
 import kotlinx.coroutines.reactive.awaitFirst
-import org.github.tarolas.travian.api.data.CookieService
-import org.github.tarolas.travian.api.entities.LoginParams
-import org.github.tarolas.travian.api.common.TravianPaths
+import org.github.tarolas.travian.common.TravianPaths
+import org.github.tarolas.travian.common.mapper.Mapper
+import org.github.tarolas.travian.engine.entities.LoginParams
+import org.github.tarolas.travian.service.CookieService
+import org.github.tarolas.travian.service.dto.CookieDto
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
 
 class LoginOperation(
-        val client : WebClient,
+        val client: WebClient,
         val cookieService: CookieService
 ) : OperationTemplate<String, LoginParams>(OperationIds.LOGIN.id) {
 
     override suspend fun doExecute(params: LoginParams, result: String) {
-        val res = cookieService.validSession(params.username, params.server)?.let {cookies ->
+        val res = cookieService.validSession(params.username, params.server)?.let { cookies ->
             client.get()
                     .uri(TravianPaths.DORF1.path)
                     .cookies { map ->
@@ -25,7 +27,7 @@ class LoginOperation(
                     .awaitFirst()
         }
 
-        if(res != null)
+        if (res != null)
             result + res
         else {
             val response = client.post()
@@ -42,6 +44,11 @@ class LoginOperation(
                     .awaitFirst()
 
             val cookies = response.cookies()
+                    .toSingleValueMap()
+                    .asSequence()
+                    .map {
+                        Mapper.map(it, CookieDto::class.java)
+                    }.toMutableSet()
 
             cookieService.save(params.username, params.password, params.server, cookies)
 
