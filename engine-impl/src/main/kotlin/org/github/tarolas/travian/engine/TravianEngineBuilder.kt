@@ -13,9 +13,8 @@ object TravianEngineBuilder {
 
     private val engineCache: ConcurrentMap<Int, TravianEngineInterface> = ConcurrentHashMap(16)
 
-    fun getEngine(loginParams: LoginParams): TravianEngineInterface = engineCache.getOrPut(loginParams.hashCode()) {
-        val (username, password, server) = loginParams
-        val engine = TravianEngineImpl(username, password, server)
+    fun getEngine(context: ApplicationContext, loginParams: LoginParams): TravianEngineInterface = engineCache.getOrPut(loginParams.hashCode()) {
+        val engine = context.getBean(TravianEngineInterface::class.java)
         runBlocking {
             engine.login(loginParams)
         }

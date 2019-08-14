@@ -5,9 +5,8 @@ import org.springframework.context.ApplicationContextAware
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 
-class DefaultOperationHandlerDecoratorFactory(
-        val client: WebClient
-) : OperationHandlerDecoratorFactory, ApplicationContextAware {
+@Component
+class DefaultOperationHandlerDecoratorFactory : OperationHandlerDecoratorFactory, ApplicationContextAware {
 
     private lateinit var context: ApplicationContext
 
@@ -15,7 +14,7 @@ class DefaultOperationHandlerDecoratorFactory(
         context = applicationContext
     }
 
-    override fun <T : OperationHandler> decorate(operationHandler: OperationHandler, decoratorClazz: Class<T>): T {
+    override fun <T : OperationHandler> decorate(operationHandler: OperationHandler, client: WebClient, decoratorClazz: Class<T>): T {
         for (ctor in decoratorClazz.constructors) {
             val parametersTypes = ctor.parameterTypes
 

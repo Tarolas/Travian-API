@@ -16,6 +16,6 @@ class Application
 fun main(args: Array<String>) {
     val application = runApplication<Application>(*args)
 
-    val engine  = TravianEngineBuilder.getEngine(LoginParams("tdx96", "pocrl", "tx3.travian.pt"))
+    val engine  = TravianEngineBuilder.getEngine(application, LoginParams("tdx96", "pocrl", "tx3.travian.pt"))
 
 }

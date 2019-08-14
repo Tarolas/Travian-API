@@ -6,9 +6,8 @@ import org.springframework.context.ApplicationContextAware
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 
-class OperationFactoryImpl(
-        val client: WebClient
-) : OperationFactory, ApplicationContextAware {
+@Component
+class OperationFactoryImpl : OperationFactory, ApplicationContextAware {
 
     private lateinit var context: ApplicationContext
 
@@ -16,7 +15,7 @@ class OperationFactoryImpl(
         context = applicationContext
     }
 
-    override fun <R, P> get(clazz: Class<out Operation<R, P>>): Operation<R, P> {
+    override fun <R, P> get(client: WebClient, clazz: Class<out Operation<R, P>>): Operation<R, P> {
         for (ctor in clazz.constructors) {
             val parametersTypes = ctor.parameterTypes
 

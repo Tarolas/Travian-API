@@ -8,12 +8,15 @@ import org.springframework.web.reactive.function.client.WebClient
 
 abstract class EngineTemplate(
         val name: String,
-        val client: WebClient
+        private val operationFactory: OperationFactory,
+        private val operationExecutorFactory: OperationHandlerDecoratorFactory
 ) {
+
+    abstract var client: WebClient
 
     private val LOG = LoggerFactory.getLogger(EngineTemplate::class.java)
 
     fun initOperationHandlerBuilder(): OperationHandlerBuilder {
-        return OperationHandlerBuilder.initOperationBuilder(client)
+        return OperationHandlerBuilder.initOperationBuilder(client, operationFactory, operationExecutorFactory)
     }
 }

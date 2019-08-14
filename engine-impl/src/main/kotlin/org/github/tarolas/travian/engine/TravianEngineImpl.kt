@@ -3,14 +3,27 @@ package org.github.tarolas.travian.engine
 import org.github.tarolas.travian.engine.entities.*
 import org.github.tarolas.travian.engine.operation.LoginOperation
 import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.Scope
 import org.springframework.http.HttpHeaders
+import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 
-class TravianEngineImpl(
-        val username: String,
-        val password: String,
-        val server: String,
-        client: WebClient = WebClient.builder()
+@Component
+@Scope("prototype")
+class TravianEngineImpl(operationFactory: OperationFactory, operationExecutorFactory: OperationHandlerDecoratorFactory)
+    : EngineTemplate("TRAVIAN ENGINE", operationFactory, operationExecutorFactory), TravianEngineInterface {
+
+    lateinit var username: String
+    lateinit var password: String
+    lateinit var server: String
+
+    override lateinit var client: WebClient
+
+    override suspend fun login(params: LoginParams): String? {
+        username = params.username
+        password = params.password
+        server = params.server
+        client = WebClient.builder()
                 .baseUrl("https://$server/")
                 .defaultHeaders {
                     it.set(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
@@ -24,9 +37,6 @@ class TravianEngineImpl(
                     it.set(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36")
                 }
                 .build()
-) : EngineTemplate("TRAVIAN ENGINE", client), TravianEngineInterface {
-
-    override suspend fun login(params: LoginParams): String? {
         return initOperationHandlerBuilder().execute(LoginOperation::class.java, params)
     }
 
@@ -41,4 +51,6 @@ class TravianEngineImpl(
     override suspend fun getProfile(params: GetProfileParams): Profile {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+
 }
