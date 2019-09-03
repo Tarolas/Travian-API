@@ -4,4 +4,6 @@ dependencies {
     compile project(":engine-impl")
     compile project(":service-impl")
     compile 'org.controlsfx:controlsfx:9.0.0'
+    compile group: 'no.tornado', name: 'tornadofx', version: '1.7.19'
+
 }
