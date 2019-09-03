@@ -3,4 +3,5 @@ dependencies {
     compile group: 'com.zsoltfabok', name: 'sqlite-dialect', version: '1.0'
     compile project(":engine-impl")
     compile project(":service-impl")
+    compile 'org.controlsfx:controlsfx:9.0.0'
 }
