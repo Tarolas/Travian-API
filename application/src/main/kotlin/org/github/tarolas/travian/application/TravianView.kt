@@ -15,7 +15,7 @@ class TravianView(val loginFormView: LoginFormView) : BorderPane() {
     init {
         Platform.runLater {
             log.info("Initializing  [{}] ", javaClass.simpleName)
-            center = loginFormView
+            center = loginFormView.root
         }
     }
 

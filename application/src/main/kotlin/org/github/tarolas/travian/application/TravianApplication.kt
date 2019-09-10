@@ -18,6 +18,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.boot.runApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.context.annotation.Import
+import tornadofx.*
 
 @SpringBootApplication
 @Import(EngineConfiguration::class, ServiceConfiguration::class)
@@ -44,8 +45,8 @@ class TravianApplication : Application() {
     private fun startApplication(primaryStage: Stage) {
         log.info("Starting {}!", PROJECT_TITLE)
         primaryStage.title = PROJECT_TITLE
-        primaryStage.height = HEIGHT
-        primaryStage.width = WIDTH
+//        primaryStage.height = HEIGHT
+//        primaryStage.width = WIDTH
         primaryStage.centerOnScreen()
         primaryStage.setOnCloseRequest { e ->
             Platform.exit()
