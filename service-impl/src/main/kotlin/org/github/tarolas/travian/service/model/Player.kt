@@ -6,7 +6,8 @@ import javax.persistence.*
 @NoArg
 @Entity
 class Player(
-        @Id @GeneratedValue(strategy = GenerationType.TABLE)
+        @Id
+        @GeneratedValue(strategy = GenerationType.SEQUENCE)
         var id: Long? = null,
         var username: String,
         var server: String,

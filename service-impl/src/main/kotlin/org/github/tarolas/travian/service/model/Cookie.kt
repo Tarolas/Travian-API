@@ -8,7 +8,8 @@ import javax.persistence.*
 @NoArg
 @Entity
 class Cookie(
-        @Id @GeneratedValue(strategy = GenerationType.TABLE)
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long? = null,
         var name: String?,
         var value: String?,
