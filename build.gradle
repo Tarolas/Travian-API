@@ -47,7 +47,6 @@ allprojects {
 
 	allOpen {
 		annotation("javax.persistence.Entity")
-		invokeInitializers = true
 	}
 	
 	noArg {
