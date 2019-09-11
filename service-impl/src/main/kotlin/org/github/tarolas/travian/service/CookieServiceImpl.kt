@@ -18,7 +18,7 @@ class CookieServiceImpl(val repository: PlayerRepository) : CookieService {
 
     override suspend fun validSession(username: String, server: String): List<CookieDto>? = withContext(Dispatchers.IO) {
         val cookies = repository.findByUsernameAndServer(username, server)?.cookies
-        if (cookies.isNullOrEmpty() || cookies.none { it.creationDate - Date() < 2800000 })
+        if (cookies.isNullOrEmpty() || cookies.none { it.creationDate?.let { it - Date() < 2800000 } == true })
             null
         else
             cookies    //.takeIf { it || it.all { it.creationDate - Date() < 2800000 } }

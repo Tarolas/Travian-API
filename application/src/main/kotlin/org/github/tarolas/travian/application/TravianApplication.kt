@@ -32,7 +32,6 @@ class TravianApplication : Application() {
     override fun init() {
         super.init()
         springContext = runApplication<TravianApplication>()
-        //val engine  = TravianEngineBuilder.getEngine(springContext, LoginParams("tdx96", "pocrl", "tx3.travian.pt"))
         val controller = springContext.getBean(TravianController::class.java)
         scene = Scene(controller.view)
         scene.stylesheets.add(CSS_PATH)
@@ -48,7 +47,7 @@ class TravianApplication : Application() {
 //        primaryStage.height = HEIGHT
 //        primaryStage.width = WIDTH
         primaryStage.centerOnScreen()
-        primaryStage.setOnCloseRequest { e ->
+        primaryStage.setOnCloseRequest {
             Platform.exit()
             System.exit(0)
         }

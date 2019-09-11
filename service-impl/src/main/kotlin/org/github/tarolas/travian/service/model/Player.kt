@@ -14,5 +14,5 @@ class Player(
 ) {
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "player_id")
-    lateinit var cookies: MutableSet<Cookie>
+    var cookies: MutableSet<Cookie>? = null
 }

@@ -28,6 +28,8 @@ allprojects {
 	apply plugin: 'kotlin-spring'
 	apply plugin: 'kotlin-jpa'
 	apply plugin: 'org.springframework.boot'
+	apply plugin: 'kotlin-noarg'
+	apply plugin: 'kotlin-allopen'
 
 	repositories {
 		jcenter()
@@ -41,6 +43,15 @@ allprojects {
 		implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}"
 		implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${coroutinesVersion}"
 
+	}
+
+	allOpen {
+		annotation("javax.persistence.Entity")
+		invokeInitializers = true
+	}
+	
+	noArg {
+		annotation("org.github.tarolas.travian.service.dto.NoArg")
 	}
 
 	dependencyManagement {

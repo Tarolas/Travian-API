@@ -1,19 +1,9 @@
 package org.github.tarolas.travian.application.gui.login
 
-import javafx.application.Platform
 import javafx.geometry.Pos
-import javafx.scene.Parent
-import javafx.scene.layout.BorderPane
-import org.slf4j.LoggerFactory
+import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Component
-import org.github.tarolas.travian.application.gui.login.LoginFormConstants.TAB_NAME
-import org.github.tarolas.travian.application.gui.main.MainView
-import org.github.tarolas.travian.engine.TravianEngineBuilder
-import org.github.tarolas.travian.engine.entities.LoginParams
-import org.springframework.context.ApplicationContext
-import org.springframework.context.ApplicationContextAware
 import tornadofx.*
-import tornadofx.FX.Companion.messages
 import java.util.*
 
 @Component
@@ -22,9 +12,7 @@ class LoginFormView(
         val controller: LoginFormController
 ) : View() {
 
-    //private val log = LoggerFactory.getLogger(LoginFormView::class.java)
-
-    override final val root = Form()
+    final override val root = Form()
 
     init {
         messages = ResourceBundle.getBundle("views/LoginFormView", FX.locale)
@@ -41,11 +29,19 @@ class LoginFormView(
                     field(messages["server.label"]) {
                         textfield().bind(model.server)
                     }
+                    fieldset("Proxy: (optional)") {
+                        field("Host:") {
+                            textfield().bind(model.proxyHost)
+                        }
+                        field("Port:") {
+                            textfield().bind(model.proxyPort)
+                        }
+                    }
                     button(messages["button.label"]) {
                         //                        graphic = GlyphFactory.create(Glyph.SAVE)
                         action {
                             log.info("logIn: username:${model.username.get()}, password:${model.password.get()}, server: ${model.server.get()}")
-                            controller.login(model.username.get(), model.password.get(), model.server.get())
+                            runAsync { runBlocking { controller.login(model) } }
                         }
                         // Save button is disabled until every field has a value
                         disableProperty().bind(model.username.isNull.or(model.password.isNull

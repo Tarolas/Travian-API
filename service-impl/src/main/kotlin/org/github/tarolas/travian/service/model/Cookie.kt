@@ -10,16 +10,16 @@ import javax.persistence.*
 class Cookie(
         @Id @GeneratedValue(strategy = GenerationType.TABLE)
         var id: Long? = null,
-        var name: String,
-        var value: String,
-        var httpOnly: Boolean,
-        var secure: Boolean,
+        var name: String?,
+        var value: String?,
+        var httpOnly: Boolean?,
+        var secure: Boolean?,
         var path: String?,
         var domain: String?,
-        var maxAge: Duration
+        var maxAge: Duration?
 ) {
-    lateinit var creationDate: Date
-    lateinit var updateDate: Date
+    var creationDate: Date? = null
+    var updateDate: Date? = null
 
     @PrePersist
     fun onCreate() {

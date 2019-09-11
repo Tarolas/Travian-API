@@ -19,7 +19,11 @@ class LoginOperation(
             client.get()
                     .uri(TravianPaths.DORF1.path)
                     .cookies { map ->
-                        cookies.forEach { map.add(it.name, it.value) }
+                        cookies.forEach {
+                            if(it.name != null) {
+                                map.add(it.name!!, it.value)
+                            }
+                        }
                     }
                     .exchange()
                     .awaitFirst()
